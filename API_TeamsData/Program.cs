@@ -1,6 +1,16 @@
+using API_TeamsData.Data;
+using API_TeamsData.Interfaces;
+using API_TeamsData.Repository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ApiContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<ITimesRepository, TimesRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
